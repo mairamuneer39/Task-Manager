@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   
   load_and_authorize_resource
   def index
-      @tasks = @tasks.paginate(page: params[:page], per_page: 1)
+      @tasks = @tasks.paginate(page: params[:page], per_page: 2)
   end
 
   def show
@@ -16,15 +16,14 @@ class TasksController < ApplicationController
   end
 
   def create
-    byebug
     @task = Task.new(task_params)
     respond_to do |format|
-        if @task.save
-          format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        else
-          format.html { render :new }
-        end
+      if @task.save
+        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+      else
+        format.html { render :new }
       end
+    end
   end
 
   def update
@@ -62,7 +61,7 @@ class TasksController < ApplicationController
   def end
     respond_to do |format|
       if @task.update(status:"Completed")
-        format.html { redirect_to @task, notice: "You have changed task's status to In Progress." }
+        format.html { redirect_to @task, notice: "Task's status changed from In Progress to Completed." }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -73,9 +72,9 @@ class TasksController < ApplicationController
 
   private
 
-    def task_params
-      params.require(:task).permit(:title, :description, :priority, :due_date, :start_date, :assigned_to_id, :status, :done, :time_spent)
-    end
+  def task_params
+    params.require(:task).permit(:title, :description, :priority, :due_date, :start_date, :assigned_to_id, :status, :done, :time_spent)
+  end
 
 
 end

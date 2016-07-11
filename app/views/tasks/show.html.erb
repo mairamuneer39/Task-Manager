@@ -60,14 +60,13 @@
       <%= button_to 'Edit Task', edit_task_path(@task), method: :get, class:"btn btn-success btn-block btn-lg" %>
     </div>
     <br><br><br>
-    
-    <%unless @task.status %>
+    <% if can?(:start, @task) %>
       <div class="col-lg-3">
         <%= button_to 'Start Task', start_task_path(@task), method: :patch, class:"btn btn-success btn-block btn-lg"  %>
       </div>
       <br><br><br>
     <% end %>
-    <% if can?(:end) %>
+    <% if can?(:end, @task) %>
       <div class="col-lg-3">
         <%= button_to 'End Task', end_task_path(@task), method: :patch, class: "btn btn-success btn-block btn-lg"  %>
       </div>

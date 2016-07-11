@@ -6,12 +6,11 @@ class Ability
     if user.role?("Admin")
       can :manage, :all
     elsif user.role?("Staff")
-      can [:show, :update, :start], Task, assigned_to_id: user.id
+      can [:show, :update], Task, assigned_to_id: user.id
       can :end, Task, status: "In Progress", assigned_to_id: user.id
-      can :index, Task, ['assigned_to_id = (?)', user.id] do
-      end 
+      can :start, Task, status: "New", assigned_to_id: user.id
+      can :index, Task, assigned_to_id: user.id
     end
   end
 
 end
-

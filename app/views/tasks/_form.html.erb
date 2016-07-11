@@ -13,10 +13,6 @@
 
   <% if current_user.role?("Staff") %>
     <div class="field">
-      <%= f.label :status %><br>
-      <%= f.select :status, Task::STATUS, {}, {class: "selectpicker"} %>
-    </div>
-    <div class="field">
       <%= f.label :done %><br>
       <%= f.text_field :done %>
     </div>
@@ -53,6 +49,9 @@
     <div class="field">
       <%= f.label :time_spent %><br>
       <%= f.text_field :time_spent %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :status, :value => "New" %>
     </div>
   <% end %>
 
