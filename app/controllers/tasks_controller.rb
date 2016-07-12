@@ -6,10 +6,12 @@ class TasksController < ApplicationController
   end
 
   def show
+    @assigned_user = User.find_name_by_id(@task.assigned_to_id)
   end
 
   def new
     @task = Task.new
+    @users = User.all
   end
 
   def edit
